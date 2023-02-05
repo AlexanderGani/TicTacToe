@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * A class written to support the TicTacToe Game.
  *
@@ -11,7 +13,6 @@
  */
 
 public class Square {
-
     private String marker;
     private int row;
     private int col;
@@ -20,16 +21,17 @@ public class Square {
     /**
      * Constructor to initialize one Square of the
      * TicTacToe board
+     *
      * @param row the row the square is in
      * @param col the column the square is in
      */
     public Square(int row, int col) {
         this.row = row;
         this.col = col;
-
         this.marker = TicTacToe.BLANK;
         this.isWinningSquare = false;
     }
+
 
     /******************** Getters and Setters ********************/
     public String getMarker() {
@@ -46,10 +48,27 @@ public class Square {
 
     /**
      * Checks if the square has the BLANK marker
+     *
      * @return True if the square is empty, False otherwise
      */
     public boolean isEmpty() {
         return this.marker.equals(TicTacToe.BLANK);
+    }
+
+    public void draw(Graphics g, TicTacToeViewer t) {
+        int width = 150;
+        if(isWinningSquare) {
+            g.setColor(Color.green);
+            g.fillRect(100 + (width * col), 100 + (width * row), width, width);
+            g.setColor(Color.BLACK);
+        }
+        g.drawRect(100 + (width * col), 100 + (width * row), width, width);
+        if (marker.equals("X")) {
+            g.drawImage(t.getImageX(), 100 + (width * col), 100 + (width * row), width, width, t);
+        }
+        else if(marker.equals("O")) {
+            g.drawImage(t.getImageO(), 100 + (width * col), 100 + (width * row), width, width, t);
+        }
     }
 
     /**
@@ -58,4 +77,6 @@ public class Square {
     public String toString() {
         return this.marker;
     }
+
+
 }
